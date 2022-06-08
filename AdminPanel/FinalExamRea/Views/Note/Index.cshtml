@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FinalExamRea.Models.Note>
+
+@{
+    ViewData["Title"] = "Note";
+}
+
+
+
+<a href="/Note/Note" class="btn btn-success">Add Note</a>
+<hr />
+<div class="row">
+@foreach(var item in Model)
+{
+    <div class="card" style="margin-left:5px">
+    <div class="card-header">
+        @item.Title - @item.Subtitle
+    
+    </div>
+    <div class="card-body">
+        @item.Content
+    </div>
+    <div class="card-footer">
+        @if(@item.IsPublish){
+             <a class="btn btn-success">it's published!</a>
+             <a class="btn btn-light" asp-route-id="@item.Id" asp-action="UpdateNote">Update</a>
+            <a class="btn btn-light" asp-route-id="@item.Id" asp-action="DeleteNote">Delete</a>
+        }
+        else{
+             <a class="btn btn-light" asp-route-id="@item.Id" asp-action="Publish">Publish</a>
+             <a class="btn btn-light" asp-route-id="@item.Id" asp-action="UpdateNote">Update</a>
+             <a class="btn btn-light" asp-route-id="@item.Id" asp-action="DeleteNote">Delete</a>
+        }
+       
+    </div>
+</div>
+}
+</div>
+
+
+
+
+

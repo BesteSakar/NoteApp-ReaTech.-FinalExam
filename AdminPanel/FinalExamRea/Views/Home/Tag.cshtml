@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Category";
+}
+@model IEnumerable<FinalExamRea.Models.Tag>
+
+<button type="button" onclick="$('#TagModal').modal('show')" class="btn btn-primary" data-toggle="modal">Add Tag</button>
+
+<table class="table table-hover">
+    <thead>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td><a class="btn btn-danger" asp-route-id="@item.Id" asp-action="DeleteTag">Delete</a></td>
+                 <td><button type="button" onclick="UpdateModel(@item.Id,'@item.Name')" class="btn btn-primary" data-toggle="modal">Update</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal" id="TagModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/Home/AddTag" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="Id" class="form-control" />
+                        <input type="text" name="Name" class="form-control" placeholder="Tag Name" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="TagUpdateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/Home/UpdateTag" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="Id" id="UpdateId" class="form-control" />
+                        <input type="text" name="Name" id="UpdateName" class="form-control" placeholder="Tag Name" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function UpdateModel(Id,Name){
+        
+        $('#UpdateId').val(Id);
+        $('#UpdateName').val(Name);
+        $('#TagUpdateModal').modal('show');
+    }
+    
+
+</script>
